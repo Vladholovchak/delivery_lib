@@ -11,5 +11,6 @@ class Car < Transport
     @max_weight = MAX_CAR_WEIGHT
     @speed = MAX_CAR_SPEED
     @registry_number = registry_number
+    @available = true
   end
 end

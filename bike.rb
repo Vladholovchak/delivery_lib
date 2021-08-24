@@ -11,5 +11,6 @@ class Bike < Transport
     @max_weight = MAX_BIKE_WEIGHT
     @speed = MAX_BIKE_SPEED
     @max_distance = MAX_DISTANCE
+    @available = true
   end
 end
