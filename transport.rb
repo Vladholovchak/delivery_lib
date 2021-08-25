@@ -16,7 +16,13 @@ class Transport
   end
 
   def <=>(other)
-    delivery_speed <=> other.delivery_speed
+    if delivery_speed < other.delivery_speed
+      -1
+    elsif delivery_speed == other.delivery_speed
+      0
+    elsif delivery_speed > other.delivery_speed
+      1
+    end
   end
 
   def delivery_speed
