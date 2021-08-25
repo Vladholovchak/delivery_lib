@@ -5,6 +5,12 @@ class Transport
   attr_reader :max_weight, :speed
   attr_accessor :available
 
+  def initialize
+    max_weight
+    speed
+    @available = true
+  end
+
   def delivery_time(distance)
     distance / speed
   end

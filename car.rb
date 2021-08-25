@@ -7,10 +7,10 @@ class Car < Transport
   include Constants
   attr_reader :max_weight
 
-  def initialize(registry_number)
+  def initialize
+    super
+    @registry_number = rand(100)
     @max_weight = MAX_CAR_WEIGHT
     @speed = MAX_CAR_SPEED
-    @registry_number = registry_number
-    @available = true
   end
 end

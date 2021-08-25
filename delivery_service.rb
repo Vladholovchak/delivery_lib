@@ -13,12 +13,11 @@ class DeliveryService
   end
 
   def find_transport(weight:, distance:)
-    @transport = @park
-    find_available_transport
+    @transport = find_available_transport
     with_correct_weight(weight)
     return select_bike(distance) unless select_bike(distance).nil?
 
-    @transport.empty? ? 'There no available transport' : @transport.first
+    @transport.empty? ? 'There no available transport' : @transport.last
   end
 
   private
@@ -26,7 +25,7 @@ class DeliveryService
   # for park
 
   def create_car
-    Car.new("number #{rand(100)}")
+    Car.new
   end
 
   def create_bike
@@ -34,13 +33,14 @@ class DeliveryService
   end
 
   def add_transport(amount, transport)
-    amount.times { @park << transport }
+    new_transport = Array.new(amount) { transport }
+    @park += new_transport
   end
 
   # for finding transport
 
   def find_available_transport
-    @transport.select!(&:available)
+    @park.select(&:available)
   end
 
   def with_correct_weight(weight)
