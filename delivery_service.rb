@@ -2,7 +2,6 @@
 
 require_relative 'car'
 require_relative 'bike'
-require 'pry'
 
 class DeliveryService
   attr_reader :park
