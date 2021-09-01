@@ -19,9 +19,9 @@ class Transport
     if max_weight < other.max_weight
       -1
     elsif max_weight == other.max_weight
-      if compare_max_distance < other.compare_max_distance
+      if max_distance < other.max_distance
         -1
-      elsif compare_max_distance > other.compare_max_distance
+      elsif max_distance > other.max_distance
         1
       else
         0
@@ -31,7 +31,7 @@ class Transport
     end
   end
 
-  def compare_max_distance
+  def max_distance
     @max_distance || Float::INFINITY
   end
 end

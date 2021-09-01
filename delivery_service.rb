@@ -2,52 +2,32 @@
 
 require_relative 'car'
 require_relative 'bike'
+require 'pry'
 
 class DeliveryService
   attr_reader :park
 
-  def initialize(bikes_count: 1, cars_count: 1)
+  def initialize(bikes: 1, cars: 1)
     @park = []
-    add_transport(bikes_count, create_bike) if bikes_count > 0
-    add_transport(cars_count, create_car) if cars_count > 0
+    add_transport(bikes, Bike.new) if bikes.positive?
+    add_transport(cars, Car.new) if cars.positive?
   end
 
   def find_transport(weight:, distance:)
-    @transport = find_available_transport
-    with_correct_weight(weight)
-    return select_bike(distance) unless select_bike(distance).nil?
+    @transport = @park.select(&:available)
+                      .select { |transport| transport.max_weight >= weight }
+                      .sort_by(&:max_weight)
+                      .find { |transport| transport.max_distance >= distance }
 
-    @transport.empty? ? 'There no available transport' : @transport.last
+    return @transport if @transport
+
+    raise { 'There no available transport' }
   end
 
   private
 
-  # for park
-
-  def create_car
-    Car.new
-  end
-
-  def create_bike
-    Bike.new
-  end
-
   def add_transport(amount, transport)
     new_transport = Array.new(amount) { transport }
     @park += new_transport
-  end
-
-  # for finding transport
-
-  def find_available_transport
-    @park.select(&:available)
-  end
-
-  def with_correct_weight(weight)
-    @transport.select! { |transport| transport.max_weight >= weight }
-  end
-
-  def select_bike(distance)
-    @transport.find { |transport| (transport.instance_of?(Bike) && transport.max_distance > distance) }
   end
 end
