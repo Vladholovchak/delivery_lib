@@ -21,10 +21,10 @@ describe Transport do
   context '#comparable' do
 
     it 'when different class and same attributes' do
-      motorbike2 = MotorBike.new(max_weight: 10, max_distance: 30)
-      cosmobike2 = CosmoBike.new(max_weight: 100)
-      expect(motorbike == motorbike2).to be_truthy
-      expect(cosmobike == cosmobike2).to be_truthy
+      bike = Bike.new
+      car = Car.new
+      expect(bike == motorbike).to be_truthy
+      expect(car == cosmobike).to be_truthy
     end
 
     it 'when same class and different attributes' do
