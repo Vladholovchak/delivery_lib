@@ -2,6 +2,7 @@
 
 require 'simplecov'
 SimpleCov.start
+require 'pry'
 
 require '../lib/modules/constants'
 require '../lib/transport'

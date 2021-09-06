@@ -19,9 +19,9 @@ class Transport
     if max_weight < other.max_weight
       -1
     elsif max_weight == other.max_weight
-      if max_distance < other.max_distance
+      if check_respond(self, :max_distance) < check_respond(other, :max_distance)
         -1
-      elsif max_distance > other.max_distance
+      elsif check_respond(self, :max_distance) > check_respond(other, :max_distance)
         1
       else
         0
@@ -31,7 +31,9 @@ class Transport
     end
   end
 
-  def max_distance
-    @max_distance || Float::INFINITY
+  private
+
+  def check_respond(obj, attr)
+    obj.respond_to?(attr) ? obj.instance_eval(attr.to_s) : Float::INFINITY
   end
 end

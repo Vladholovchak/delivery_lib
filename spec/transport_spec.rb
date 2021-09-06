@@ -1,44 +1,42 @@
 # frozen_string_literal: true
 
-class MotorBike < Transport
-
-  def initialize(max_weight:, max_distance:)
-    @max_weight = max_weight
-    @max_distance = max_distance
-  end
-end
-
-class CosmoBike < Transport
-  def initialize(max_weight:)
-    @max_weight = max_weight
-  end
-end
-
 describe Transport do
-  let(:motorbike) { MotorBike.new(max_weight: 10, max_distance: 30) }
-  let(:cosmobike) { CosmoBike.new(max_weight: 100) }
+  let!(:bike) { Bike.new }
+  let!(:car) { Car.new }
 
-  context '#comparable' do
+  describe '<=>' do
+    context 'when same class and same max_weight' do
+      it 'must be equal when class car' do
+        car2 = Car.new
+        expect(car).to be == car2
+      end
 
-    it 'when different class and same attributes' do
-      bike = Bike.new
-      car = Car.new
-      expect(bike == motorbike).to be_truthy
-      expect(car == cosmobike).to be_truthy
+      it 'must be equal when class bike' do
+        bike2 = Bike.new
+        expect(bike).to be == bike2
+      end
     end
 
-    it 'when same class and different attributes' do
-      motorbike2 = MotorBike.new(max_weight: 10, max_distance: 40)
-      cosmobike2 = CosmoBike.new(max_weight: 50)
-      expect(motorbike == motorbike2).to be_falsey
-      expect(motorbike2 > motorbike).to be_truthy
-      expect(cosmobike > cosmobike2).to be_truthy
+    context 'when same class and same max_distance' do
+      it 'must be equal' do
+        bike2 = Bike.new
+        expect(bike).to be == bike2
+      end
     end
 
-    it 'when same max_weight' do
-      cosmobike2 = CosmoBike.new(max_weight: 10)
-      expect(motorbike == cosmobike2).to be_falsey
-      expect(motorbike < cosmobike2).to be_truthy
+    context 'when different class and different attributes' do
+      it 'must be false' do
+        expect(bike).not_to be == car
+      end
+    end
+  end
+
+  describe 'delivery_time' do
+    context 'when speed present and > 0' do
+      it 'show correct value' do
+        correct_time = 100 / car.speed
+        expect(car.delivery_time(100)).to eq(correct_time)
+      end
     end
   end
 end
