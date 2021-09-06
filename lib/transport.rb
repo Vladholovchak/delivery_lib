@@ -31,8 +31,6 @@ class Transport
     end
   end
 
-  private
-
   def check_respond(obj, attr)
     obj.respond_to?(attr) ? obj.instance_eval(attr.to_s) : Float::INFINITY
   end

@@ -16,11 +16,11 @@ class DeliveryService
     @transport = @park.select(&:available)
                       .select { |transport| transport.max_weight >= weight }
                       .sort_by(&:max_weight)
-                      .find { |transport| transport.max_distance >= distance }
+                      .find { |transport| transport.check_respond(transport, :max_distance) >= distance }
 
     return @transport if @transport
 
-    raise { 'There no available transport' }
+    raise  'There no available transport'
   end
 
   private
