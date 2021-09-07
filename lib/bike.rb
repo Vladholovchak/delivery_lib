@@ -13,4 +13,8 @@ class Bike < Transport
     @speed = MAX_SPEED
     @max_distance = MAX_DISTANCE
   end
+
+  def self.all
+    super.select { |inst| inst.instance_of? Bike }
+  end
 end
