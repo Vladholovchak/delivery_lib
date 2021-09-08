@@ -4,6 +4,7 @@ class Transport
   include Comparable
   attr_reader :max_weight, :speed, :location, :number_of_deliveries, :delivery_cost
   attr_accessor :available
+
   @@instances = []
 
   def initialize
