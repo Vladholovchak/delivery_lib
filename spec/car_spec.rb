@@ -16,10 +16,6 @@ describe Car do
     it 'returns [] when instances not created' do
       expect(Car.all).to eq([])
     end
-
-    it 'returns [] when instances not created' do
-      expect(Car.all).to eq([])
-    end
   end
 
   describe 'find_by' do
@@ -104,6 +100,14 @@ describe Car do
         car.delivery_cost = 10
         expect(Car.find_by_delivery_cost(15)).to eq nil
       end
+    end
+  end
+
+  describe 'filter_by' do
+    it 'has all filter_by methods' do
+      methods = Car.methods(false)
+      result = car.instance_variables.map { |v| "filter_by_#{v.to_s.delete_prefix('@')}".to_sym }
+      expect(methods).to include(*result)
     end
   end
 end

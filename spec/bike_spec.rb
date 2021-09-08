@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Car do
+describe Bike do
   let(:bike) { Bike.new }
   let(:car) { Car.new }
 
@@ -100,6 +100,14 @@ describe Car do
         bike.delivery_cost = 10
         expect(Bike.find_by_delivery_cost(15)).to eq nil
       end
+    end
+  end
+
+  describe 'filter_by' do
+    it 'has all filter_by methods' do
+      methods = Bike.methods(false)
+      result = bike.instance_variables.map { |v| "filter_by_#{v.to_s.delete_prefix('@')}".to_sym }
+      expect(methods).to include(*result)
     end
   end
 end
