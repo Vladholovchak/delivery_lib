@@ -2,8 +2,8 @@
 
 class Transport
   include Comparable
-  attr_reader :max_weight, :speed, :location, :number_of_deliveries, :delivery_cost
-  attr_accessor :available
+  attr_reader :max_weight, :speed, :location
+  attr_accessor :available, :number_of_deliveries, :delivery_cost
 
   @@instances = []
 
