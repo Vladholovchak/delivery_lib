@@ -2,13 +2,19 @@
 
 class Transport
   include Comparable
-  attr_reader :max_weight, :speed
-  attr_accessor :available
+  attr_reader :max_weight, :speed, :location
+  attr_accessor :available, :number_of_deliveries, :delivery_cost
+
+  @@instances = []
 
   def initialize
     max_weight
     speed
     @available = true
+    @location = ['On route', 'In garage']
+    number_of_deliveries
+    delivery_cost
+    @@instances << self
   end
 
   def delivery_time(distance)
@@ -33,5 +39,9 @@ class Transport
 
   def check_respond(obj, attr)
     obj.respond_to?(attr) ? obj.instance_eval(attr.to_s) : Float::INFINITY
+  end
+
+  def self.all
+    @@instances
   end
 end

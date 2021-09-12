@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 describe Transport do
-  let!(:bike) { Bike.new }
-  let!(:car) { Car.new }
+  let(:bike) { Bike.new }
+  let(:car) { Car.new }
 
   describe '<=>' do
     context 'when same class and same max_weight' do
@@ -37,6 +37,19 @@ describe Transport do
         correct_time = 100 / car.speed
         expect(car.delivery_time(100)).to eq(correct_time)
       end
+    end
+  end
+
+  describe 'all' do
+    before(:each) { Transport.class_variable_set :@@instances, [] }
+
+    it 'returns all children instances when they exist' do
+      children = [bike, car]
+      expect(Transport.all).to eq(children)
+    end
+
+    it 'returns [] when children instances not created' do
+      expect(Transport.all).to eq([])
     end
   end
 end
